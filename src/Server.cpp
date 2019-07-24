@@ -25,13 +25,13 @@ Server::Server(std::string ip_addr, int port) : m_IpAddr(std::move(ip_addr)), m_
         throw std::runtime_error("Failed to bind socket!");
 }
 
-std::unique_ptr<Connection> Server::Listen() {
+std::unique_ptr<net::Connection> Server::Listen() {
     sockaddr_in client_addr;
     listen(this->m_SockFd, NUM_MAXIMUM_CONNECTION_BACKLOG);
     unsigned int addr_sz = sizeof(client_addr);
     int sockfd = accept(this->m_SockFd, (sockaddr *) &client_addr, &addr_sz);
     if (sockfd < 0)
         throw std::runtime_error("Failed to accept connection!");
-    std::unique_ptr<Connection> connection(new Connection(this->m_IpAddr, this->m_Port, sockfd));
+    std::unique_ptr<net::Connection> connection(new net::Connection(this->m_IpAddr, this->m_Port, sockfd));
     return connection;
 }

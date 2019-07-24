@@ -6,7 +6,6 @@
 #include <vector>
 
 namespace net {
-namespace server {
 
 class Connection {
 public:
@@ -26,5 +25,4 @@ private:
     int m_SockFd;
 };
 
-}
 }
